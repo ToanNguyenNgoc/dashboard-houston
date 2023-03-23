@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { useAuth } from '../core/Auth'
 import { api } from '@/api'
+import { useRolesStore } from '@/store/zustand'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -26,6 +27,7 @@ const initialValues = {
 export function Login() {
   const [loading, setLoading] = useState(false)
   const { saveAuth, setCurrentUser } = useAuth()
+  const [fetchRole] = useRolesStore((state:any) => [state.fetchRole])
 
   const formik = useFormik({
     initialValues,
@@ -35,8 +37,9 @@ export function Login() {
       try {
         const { data: auth } = await api.login({ email: values.email, password: values.password })
         saveAuth(auth)
-        const { data: user } = await api.profile(auth.token)
+        const { data: user } = await api.profile()
         setCurrentUser(user)
+        await fetchRole()
       } catch (error) {
         console.error(error)
         saveAuth(undefined)

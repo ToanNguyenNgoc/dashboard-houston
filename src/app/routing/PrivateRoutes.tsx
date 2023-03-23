@@ -1,11 +1,11 @@
-import {lazy, FC, Suspense} from 'react'
-import {Route, Routes, Navigate} from 'react-router-dom'
-import {MasterLayout} from '../../_metronic/layout/MasterLayout'
+import { lazy, FC, Suspense } from 'react'
+import { Route, Routes, Navigate } from 'react-router-dom'
+import { MasterLayout } from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
-import {MenuTestPage} from '../pages/MenuTestPage'
-import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
-import {WithChildren} from '../../_metronic/helpers'
+import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
+import { MenuTestPage } from '../pages/MenuTestPage'
+import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils'
+import { WithChildren } from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 
 const PrivateRoutes = () => {
@@ -15,6 +15,11 @@ const PrivateRoutes = () => {
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
+  const AccountsPage = lazy(() => import('@/app/modules/apps/accounts'))
+  const AccountForm = lazy(() => import('@/app/modules/apps/accounts/pages/AccountForm'))
+  const RolesPage = lazy(() => import('@/app/modules/apps/roles'))
+  const RoleForm = lazy(() => import('@/app/modules/apps/roles/pages/RoleForm'))
+  const PermissionsPage = lazy(() => import('@/app/modules/apps/permissions'))
 
   return (
     <Routes>
@@ -74,6 +79,62 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
+        <Route
+          path='apps/accounts'
+          element={
+            <SuspensedView>
+              <AccountsPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='apps/accounts/form'
+          element={
+            <SuspensedView>
+              <AccountForm />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='apps/accounts/form/:id'
+          element={
+            <SuspensedView>
+              <AccountForm />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='apps/roles'
+          element={
+            <SuspensedView>
+              <RolesPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='apps/roles/form'
+          element={
+            <SuspensedView>
+              <RoleForm />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='apps/roles/form/:id'
+          element={
+            <SuspensedView>
+              <RoleForm />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='apps/permissions/*'
+          element={
+            <SuspensedView>
+              <PermissionsPage />
+            </SuspensedView>
+          }
+        />
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
@@ -81,7 +142,7 @@ const PrivateRoutes = () => {
   )
 }
 
-const SuspensedView: FC<WithChildren> = ({children}) => {
+const SuspensedView: FC<WithChildren> = ({ children }) => {
   const baseColor = getCSSVariableValue('--kt-primary')
   TopBarProgress.config({
     barColors: {
@@ -93,4 +154,4 @@ const SuspensedView: FC<WithChildren> = ({children}) => {
   return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>
 }
 
-export {PrivateRoutes}
+export { PrivateRoutes }

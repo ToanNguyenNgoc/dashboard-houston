@@ -1,0 +1,48 @@
+.role_cnt {
+  position: relative;
+
+  .form-control-solid {
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+    min-height: 44px;
+    height: max-content;
+
+    .MuiButtonBase-root {
+      margin: 3px;
+    }
+  }
+
+  .role_select {
+    position: absolute;
+    background-color: var(--kt-white);
+    box-shadow: var(--box-shadow);
+    z-index: 2;
+    width: 300px;
+    padding: 12px 8px;
+    border-radius: 6px;
+    max-height: 250px;
+    overflow-y: scroll;
+    margin-top: 30px;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--trans);
+
+    .role_item {
+      padding-bottom: 6px;
+
+      .MuiButtonBase-root {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  .role_select_show {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 20px;
+    transition: var(--trans);
+  }
+}

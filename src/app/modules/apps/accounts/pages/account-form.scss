@@ -1,0 +1,108 @@
+.card_cnt {
+  padding: 1rem 2.5rem;
+
+  .account_head {
+    display: flex;
+    align-items: flex-end;
+
+    .account_head-avatar {
+      width: 120px;
+      height: 120px;
+
+      .avatar_cnt {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        border-radius: 100%;
+        box-shadow: var(--box-shadow);
+        border: solid 4px var(--kt-white);
+
+        img {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 100%;
+          z-index: 1;
+        }
+
+        .avatar_cnt-act {
+          position: absolute;
+          z-index: 2;
+          bottom: 0;
+          right: 0;
+          margin: 0px 4px 6px 0px;
+        }
+      }
+    }
+
+    .account_head-info {
+      padding-left: 18px;
+
+      .acc_fullname {
+        font-size: 24px;
+        left: 28px;
+        font-weight: 600;
+      }
+
+      .acc_address {
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .account_form {
+    padding: 2rem 0rem;
+
+    .title {
+      font-size: 18px;
+      line-height: 20px;
+      font-weight: 500;
+    }
+
+    .form {
+      margin-top: 10px;
+
+      .form_row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .form_column,
+      .form_column_1 {
+        width: calc(50% - 12px);
+        padding: 8px 0px;
+      }
+
+      .form_column_1 {
+        width: 100%;
+      }
+
+      .form_column_control {
+        display: flex;
+        align-items: flex-end;
+
+        .item {
+          margin-right: 12px;
+
+          .MuiFormControlLabel-root {
+            margin: 0px !important;
+          }
+        }
+      }
+
+      .form_bottom {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .form_bottom_btn {
+          margin-left: 12px;
+        }
+      }
+    }
+  }
+}

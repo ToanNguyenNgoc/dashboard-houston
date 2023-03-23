@@ -5,7 +5,7 @@ export const baseURL = import.meta.env.VITE_REACT_APP_API_URL
 const axiosClient = axios.create({
   baseURL: baseURL,
   headers: {
-    'Accept': "application/json, text/plain, */*",
+    "Accept": "application/json, text/plain, */*",
     "Content-Type": "application/json",
   },
   paramsSerializer: {

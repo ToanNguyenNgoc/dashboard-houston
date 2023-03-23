@@ -1,0 +1,28 @@
+.role-form-cnt {
+  padding: 1rem 2.25rem;
+
+  .form {
+    .form_head {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .form_body {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      .form-row {
+        width: calc(50% - 12px);
+        margin: 12px 0px;
+
+        .MuiFormControlLabel-root {
+          margin: 0px !important;
+        }
+      }
+    }
+
+  }
+}
