@@ -47,7 +47,7 @@ function AccountForm() {
   if (id && account?.data) { mode = "PUT" }
   const onSubmit = async (data: any) => {
     if (mode === "POST") {
-      return
+      return console.log(data, roles)
     }
     if (mode === "PUT") {
       const body = {
@@ -120,7 +120,7 @@ function AccountForm() {
                   <input
                     {...register('email', { required: true })}
                     type="text"
-                    disabled
+                    disabled={id}
                     className="form-control form-control-solid"
                   />
                 </div>

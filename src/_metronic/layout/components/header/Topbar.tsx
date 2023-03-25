@@ -1,3 +1,5 @@
+import { useProfileStore } from '@/store/zustand'
+import { StoreProfile } from '@/store/zustand/models'
 import clsx from 'clsx'
 import React, {FC} from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
@@ -17,6 +19,7 @@ const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
 
 const Topbar: FC = () => {
   const {config} = useLayout()
+  const [profile] = useProfileStore((state:StoreProfile) => [state.profile])
 
   return (
     <div className='d-flex align-items-stretch flex-shrink-0'>
@@ -127,7 +130,7 @@ const Topbar: FC = () => {
           data-kt-menu-placement='bottom-end'
           data-kt-menu-flip='bottom'
         >
-          <img src={toAbsoluteUrl('/media/avatars/300-1.jpg')} alt='metronic' />
+          <img style={{objectFit:'cover'}} src={profile?.media?.original_url} alt='' />
         </div>
         <HeaderUserMenu />
         {/* end::Toggle */}

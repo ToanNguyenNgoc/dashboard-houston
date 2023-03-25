@@ -18,6 +18,11 @@ class Api {
       .get(apiRoute.PROFILE, header())
       .then(res => res.data)
   }
+  putProfile(body:any){
+    return axiosClient
+    .put(apiRoute.PROFILE, body, header())
+    .then(res => res.data)
+  }
   userRoles() {
     return axiosClient
       .get(apiRoute.USER_ROLES, header())

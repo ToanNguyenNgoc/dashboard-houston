@@ -13,7 +13,7 @@ import * as authHelper from './AuthHelpers'
 import { api } from '@/api'
 import { WithChildren } from '@/_metronic/helpers'
 import { LayoutSplashScreen } from '@/_metronic/layout/core'
-import { useRolesStore } from '@/store/zustand'
+import { useProfileStore, useRolesStore } from '@/store/zustand'
 
 type AuthContextProps = {
   auth: any,
@@ -66,6 +66,7 @@ const AuthProvider: FC<WithChildren> = ({ children }) => {
 const AuthInit: FC<WithChildren> = ({ children }) => {
   const { auth, logout, setCurrentUser } = useAuth()
   const [fetchRole, clearRoles] = useRolesStore((state: any) => [state.fetchRole, state.clearRoles])
+  const [onSetProfile] = useProfileStore((state:any) => [state.onSetProfile])
   const didRequest = useRef(false)
   const [showSplashScreen, setShowSplashScreen] = useState(true)
   // We should request user by authToken (IN OUR EXAMPLE IT'S API_TOKEN) before rendering the application
@@ -76,6 +77,7 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
           const { data: user } = await api.profile()
           if (user) {
             setCurrentUser(user)
+            onSetProfile(user)
             await fetchRole()
           }
         }

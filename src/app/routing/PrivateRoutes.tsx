@@ -31,14 +31,14 @@ const PrivateRoutes = () => {
         <Route path='builder' element={<BuilderPageWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
         {/* Lazy Modules */}
-        <Route
+        {/* <Route
           path='crafted/pages/profile/*'
           element={
             <SuspensedView>
               <ProfilePage />
             </SuspensedView>
           }
-        />
+        /> */}
         <Route
           path='crafted/pages/wizards/*'
           element={
@@ -56,7 +56,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='crafted/account/*'
+          path='crafted/profile/*'
           element={
             <SuspensedView>
               <AccountPage />

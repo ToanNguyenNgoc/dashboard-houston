@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useState} from 'react'
-import {KTSVG} from '../../../../../../_metronic/helpers'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import {IUpdatePassword, IUpdateEmail, updatePassword, updateEmail} from '../SettingsModel'
@@ -49,7 +48,7 @@ const SignInMethod: React.FC = () => {
     validationSchema: emailFormValidationSchema,
     onSubmit: (values) => {
       setLoading1(true)
-      setTimeout((values) => {
+      setTimeout((values:any) => {
         setEmailUpdateData(values)
         setLoading1(false)
         setShowEmailForm(false)
@@ -66,7 +65,7 @@ const SignInMethod: React.FC = () => {
     validationSchema: passwordFormValidationSchema,
     onSubmit: (values) => {
       setLoading2(true)
-      setTimeout((values) => {
+      setTimeout((values:any) => {
         setPasswordUpdateData(values)
         setLoading2(false)
         setPasswordForm(false)
@@ -89,7 +88,7 @@ const SignInMethod: React.FC = () => {
 
       <div id='kt_account_signin_method' className='collapse show'>
         <div className='card-body border-top p-9'>
-          <div className='d-flex flex-wrap align-items-center'>
+          {/* <div className='d-flex flex-wrap align-items-center'>
             <div id='kt_signin_email' className={' ' + (showEmailForm && 'd-none')}>
               <div className='fs-6 fw-bolder mb-1'>Email Address</div>
               <div className='fw-bold text-gray-600'>support@keenthemes.com</div>
@@ -185,9 +184,9 @@ const SignInMethod: React.FC = () => {
                 Change Email
               </button>
             </div>
-          </div>
+          </div> */}
 
-          <div className='separator separator-dashed my-6'></div>
+          {/* <div className='separator separator-dashed my-6'></div> */}
 
           <div className='d-flex flex-wrap align-items-center mb-10'>
             <div id='kt_signin_password' className={' ' + (showPasswordForm && 'd-none')}>
@@ -311,7 +310,7 @@ const SignInMethod: React.FC = () => {
             </div>
           </div>
 
-          <div className='notice d-flex bg-light-primary rounded border-primary border border-dashed p-6'>
+          {/* <div className='notice d-flex bg-light-primary rounded border-primary border border-dashed p-6'>
             <KTSVG
               path='/media/icons/duotune/general/gen048.svg'
               className='svg-icon-2tx svg-icon-primary me-4'
@@ -333,7 +332,7 @@ const SignInMethod: React.FC = () => {
                 Enable
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
