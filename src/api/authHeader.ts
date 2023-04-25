@@ -1,12 +1,14 @@
 import { AxiosRequestConfig } from "axios"
 import { key } from "./_key"
 
-export const header = (): AxiosRequestConfig<any> => {
+export const header = (
+  contentType?: 'application/json' | 'multipart/form-data' | ''
+): AxiosRequestConfig<any> => {
   const lsToken = localStorage.getItem(key.AUTH_LOCAL_STORAGE_KEY)
   return {
     headers: {
       "Authorization": `Bearer ${lsToken}`,
-      "Content-Type": 'application/json'
+      "Content-Type": contentType ?? 'application/json'
     },
   }
 }

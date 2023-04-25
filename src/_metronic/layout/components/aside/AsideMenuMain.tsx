@@ -23,10 +23,27 @@ export function AsideMenuMain() {
       />
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
-          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
+          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Villa type & Villa</span>
         </div>
       </div>
-      <AsideMenuItemWithSub
+      <AsideMenuItem
+        to='/villa_cates'
+        icon='/media/icons/duotune/general/gen051.svg'
+        title='Villa type'
+        fontIcon='bi-layers'
+      />
+      <AsideMenuItem
+        to='/villas'
+        icon='/media/icons/duotune/general/gen051.svg'
+        title='Villa'
+        fontIcon='bi-layers'
+      />
+      {/* <div className='menu-item'>
+        <div className='menu-content pt-8 pb-2'>
+          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
+        </div>
+      </div> */}
+      {/* <AsideMenuItemWithSub
         to='/crafted/pages'
         title='Pages'
         fontIcon='bi-archive'
@@ -52,8 +69,8 @@ export function AsideMenuMain() {
           />
           <AsideMenuItem to='/crafted/pages/wizards/vertical' title='Vertical' hasBullet={true} />
         </AsideMenuItemWithSub>
-      </AsideMenuItemWithSub>
-      <AsideMenuItemWithSub
+      </AsideMenuItemWithSub> */}
+      {/* <AsideMenuItemWithSub
         to='/crafted/accounts'
         title='Accounts'
         icon='/media/icons/duotune/communication/com006.svg'
@@ -83,7 +100,7 @@ export function AsideMenuMain() {
         <AsideMenuItem to='/crafted/widgets/mixed' title='Mixed' hasBullet={true} />
         <AsideMenuItem to='/crafted/widgets/tables' title='Tables' hasBullet={true} />
         <AsideMenuItem to='/crafted/widgets/feeds' title='Feeds' hasBullet={true} />
-      </AsideMenuItemWithSub>
+      </AsideMenuItemWithSub> */}
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Apps</span>

@@ -1,0 +1,22 @@
+.forgot_form {
+  .forgot_form-code{
+    height: 0px;
+    overflow: hidden;
+    transition: var(--trans);
+  }
+  .forgot_form-code_open{
+    height: 314px;
+    transition: var(--trans);
+  }
+  .forgot_form-bot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .MuiButton-root{
+      width: calc(50% - 12px);
+    }
+    .MuiButton-root:nth-child(2){
+      background-color: var(--kt-gray-100);
+    }
+  }
+}

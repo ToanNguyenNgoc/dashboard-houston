@@ -1,10 +1,10 @@
-import React, { ChangeEvent } from 'react'
+import { ChangeEvent } from 'react'
 import { toAbsoluteUrl } from '../../../../../../_metronic/helpers'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { CustomSnack, CustomSwitch, LoadButton } from '@/components'
 import { Profile } from '@/interface'
-import { usePost } from '@/hooks'
+import { usePost, usePostMedia } from '@/hooks'
 import { api } from '@/api'
 import { identity, pickBy } from 'lodash'
 import { useProfileStore } from '@/store/zustand'
@@ -26,6 +26,7 @@ const ProfileDetails = (props: Props) => {
   const { profile } = props
   const [onUpdateProfile] = useProfileStore((state: StoreProfile) => [state.onUpdateProfile])
   const { handle, result, onCloseNoti } = usePost()
+  const { handlePostMedia } = usePostMedia()
   const formik = useFormik({
     initialValues: {
       email: profile.email,
@@ -33,7 +34,8 @@ const ProfileDetails = (props: Props) => {
       telephone: profile.telephone,
       description: profile.description,
       full_address: profile.full_address,
-      sex: profile.sex
+      sex: profile.sex,
+      ccid: profile.ccid
 
     },
     validationSchema: profileDetailsSchema,
@@ -52,6 +54,15 @@ const ProfileDetails = (props: Props) => {
       })
     },
   })
+  const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    await handlePostMedia({
+      e: e,
+      callBack: (data) => handle({
+        handleFn: () => api.putProfile({ mediaId: data[0].mediaId }),
+        callback: () => onUpdateProfile({ media: { original_url: data[0].original_url } })
+      })
+    })
+  }
   const onChangSex = (e: ChangeEvent<HTMLInputElement>) => {
     formik.setFieldValue('sex', e.target.checked)
   }
@@ -92,10 +103,10 @@ const ProfileDetails = (props: Props) => {
                       className='image-input-wrapper w-125px h-125px'
                       style={{ backgroundImage: `url(${profile.media?.original_url})` }}
                     ></div>
-                     <IconButton size="large" color="primary" aria-label="upload picture" component="label">
-                    <input hidden accept="image/*" type="file" />
-                    <PhotoCamera />
-                  </IconButton>
+                    <IconButton size="large" color="primary" aria-label="upload picture" component="label">
+                      <input onChange={onChangeFile} hidden accept="image/*" type="file" />
+                      <PhotoCamera />
+                    </IconButton>
                   </div>
                 </div>
               </div>
@@ -149,6 +160,24 @@ const ProfileDetails = (props: Props) => {
                   {formik.touched.email && formik.errors.email && (
                     <div className='fv-plugins-message-container'>
                       <div className='fv-help-block'>{formik.errors.email}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className='row mb-6'>
+                <label className='col-lg-4 col-form-label required fw-bold fs-6'>CCID</label>
+
+                <div className='col-lg-8 fv-row'>
+                  <input
+                    disabled
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='ccid'
+                    {...formik.getFieldProps('ccid')}
+                  />
+                  {formik.touched.ccid && formik.errors.ccid && (
+                    <div className='fv-plugins-message-container'>
+                      <div className='fv-help-block'>{formik.errors.ccid}</div>
                     </div>
                   )}
                 </div>

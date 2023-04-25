@@ -6,7 +6,8 @@ import dayjs from "dayjs";
 import { useQuery } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
 import './style.scss'
-import { IconButton } from "@mui/material";
+import { Avatar, IconButton } from "@mui/material";
+import { stringAvatar } from "@/utils";
 
 function Account() {
   const navigate = useNavigate()
@@ -35,9 +36,11 @@ function Account() {
             <table className='table align-middle gs-0 gy-4'>
               <thead>
                 <tr className='fw-bold text-muted bg-light'>
+                <th className='min-w-60px'>Avatar</th>
                   <th className='ps-4 min-w-200px rounded-start'>Fullname</th>
                   <th className='min-w-125px'>Email</th>
                   <th className='min-w-125px'>Telephone</th>
+                  <th className='min-w-200px'>Branch</th>
                   <th className='min-w-200px'>Roles</th>
                   <th className='min-w-125px'>Created at</th>
                   <th className='min-w-125px'>Update at</th>
@@ -49,6 +52,14 @@ function Account() {
                 {
                   data?.data?.map((item: any, index: number) => (
                     <tr key={index}>
+                      <td>
+                        <span className='text-muted fw-semobold text-muted d-block fs-7'>
+                        <Avatar 
+                          {...stringAvatar(item.fullname)}
+                          alt="" src={item.media?.original_url ?? ''} 
+                        />
+                        </span>
+                      </td>
                       <td>
                         <div className='d-flex align-items-center'>
                           <div className='d-flex justify-content-start flex-column'>
@@ -66,6 +77,11 @@ function Account() {
                       <td>
                         <span className='text-muted fw-semobold text-muted d-block fs-7'>
                           {item.telephone}
+                        </span>
+                      </td>
+                      <td>
+                        <span className='text-muted fw-semobold text-muted d-block fs-7'>
+                          {item.branch?.name}
                         </span>
                       </td>
                       <td>

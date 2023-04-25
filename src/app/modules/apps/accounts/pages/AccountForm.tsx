@@ -2,23 +2,25 @@ import { PageTitle } from '@/_metronic/layout/core';
 import { BranchSelect, CheckCircleIcon, CustomSnack, CustomSwitch, LoadButton, RoleSelect } from '@/components'
 import { useForm } from 'react-hook-form'
 import './account-form.scss'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { api } from '@/api';
 import { pickBy, identity } from 'lodash'
 import { usePost } from '@/hooks';
 import { useRolesStore } from '@/store/zustand';
+import { AppContext, AppContextType } from '@/context/AppProvider';
 
 
 function AccountForm() {
   const params = useParams()
-  const [isSPA] = useRolesStore((state:any) => [state.isSPA])
-  console.log(isSPA)
+  const { branch } = useContext(AppContext) as AppContextType
+  const [isSPA] = useRolesStore((state: any) => [state.isSPA])
   const id: any = params.id
   const [display, setDisplay] = useState({ fullname: '', full_address: '', status: true, sex: true })
   const [roles, setRoles] = useState<number[]>([])
-  const { register, handleSubmit, formState, setValue, } = useForm()
+  const [branchId, setBranchId] = useState<number>(branch?.id)
+  const { register, handleSubmit, setValue } = useForm()
 
   const { handle, result, onCloseNoti } = usePost()
   const { data: account, refetch } = useQuery({
@@ -35,35 +37,42 @@ function AccountForm() {
         sex: account?.sex,
       }),
         setRoles(account?.roles?.map((item: any) => item.id)),
+        setBranchId(account?.branch?.id),
         setValue("fullname", account?.fullname),
         setValue("telephone", account?.telephone),
         setValue("email", account?.email),
         setValue("password", account?.password),
         setValue("description", account?.description),
-        setValue("full_address", account?.full_address)
+        setValue("full_address", account?.full_address),
+        setValue("ccid", account.ccid)
     },
   })
   let mode = "POST"
   if (id && account?.data) { mode = "PUT" }
   const onSubmit = async (data: any) => {
-    if (mode === "POST") {
-      return console.log(data, roles)
-    }
-    if (mode === "PUT") {
-      const body = {
-        ...data,
-        telephone: data.telephone !== account?.data?.telephone ? data.telephone : null,
-        roles: roles
+    if (roles.length > 0) {
+      if (mode === "POST") {
+        await handle({
+          handleFn: () => api.postAccount({ ...data, sex: display.sex, roles: roles, branch_id: branchId }),
+          messageSuccess: 'Create account success !'
+        })
       }
-      await handle({
-        handleFn: () => api.putAccount(
-          id, { ...pickBy(body, identity), sex: display.sex, status: display.status }
-        ),
-        messageSuccess: "Update account success !"
-      })
+      if (mode === "PUT") {
+        const body = {
+          ...data,
+          telephone: data.telephone !== account?.data?.telephone ? data.telephone : null,
+          roles: roles,
+          branch_id: branchId
+        }
+        await handle({
+          handleFn: () => api.putAccount(
+            id, { ...pickBy(body, identity), sex: display.sex, status: display.status }
+          ),
+          messageSuccess: "Update account success !"
+        })
+      }
     }
   }
-
   return (
     <>
       <PageTitle>Create new account</PageTitle>
@@ -77,7 +86,7 @@ function AccountForm() {
         <div className="account_head">
           <div className="account_head-avatar">
             <div className="avatar_cnt">
-              <img src="https://source.unsplash.com/random" alt="" />
+              <img src={account?.data?.media?.original_url ?? ''} alt="" />
               {
                 display.status &&
                 <div className="avatar_cnt-act">
@@ -110,6 +119,16 @@ function AccountForm() {
                   <input
                     type="text"
                     {...register('telephone', { required: true })}
+                    className="form-control form-control-solid"
+                  />
+                </div>
+              </div>
+              <div className="form_row">
+                <div className="form_column">
+                  <label className="form-label required">CCID</label>
+                  <input
+                    type="text"
+                    {...register('ccid', { required: true })}
                     className="form-control form-control-solid"
                   />
                 </div>
@@ -190,13 +209,14 @@ function AccountForm() {
                     setValue={setRoles}
                   />
                 </div>
-                {
-                  isSPA &&
-                  <div className="form_column">
-                    <label className="form-label required">Branch</label>
-                    <BranchSelect />
-                  </div>
-                }
+                <div className="form_column form_column_branch">
+                  <label className="form-label required">Branch</label>
+                  <BranchSelect
+                    branchId={branchId}
+                    setBranchId={setBranchId}
+                  />
+                  {!isSPA && <div className="form_column_branch_dis"></div>}
+                </div>
               </div>
             </div>
             <div className="form_bottom">

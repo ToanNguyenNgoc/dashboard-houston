@@ -1,1 +1,5 @@
 export * from './encode'
+export * from './string-avatar'
+export * from './validate'
+export * from './getCroppedImg'
+export * from './format'

@@ -13,6 +13,7 @@ const PrivateRoutes = () => {
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
+  const AccountBranch = lazy(() => import('@/app/modules/accounts/AccountBranch'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
   const AccountsPage = lazy(() => import('@/app/modules/apps/accounts'))
@@ -20,6 +21,9 @@ const PrivateRoutes = () => {
   const RolesPage = lazy(() => import('@/app/modules/apps/roles'))
   const RoleForm = lazy(() => import('@/app/modules/apps/roles/pages/RoleForm'))
   const PermissionsPage = lazy(() => import('@/app/modules/apps/permissions'))
+  const VillaCatePage = lazy(() => import('@/app/modules/villa/villa_cates'))
+  const VillaPage = lazy(() => import('@/app/modules/villa/villas'))
+  const VillaForm = lazy(() => import('@/app/modules/villa/villas/VillaForm'))
 
   return (
     <Routes>
@@ -39,6 +43,38 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         /> */}
+        <Route
+          path='villa_cates/*'
+          element={
+            <Suspense>
+              <VillaCatePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path='villas/*'
+          element={
+            <Suspense>
+              <VillaPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path='villas/form'
+          element={
+            <Suspense>
+              <VillaForm />
+            </Suspense>
+          }
+        />
+        <Route
+          path='villas/form/:id'
+          element={
+            <Suspense>
+              <VillaForm />
+            </Suspense>
+          }
+        />
         <Route
           path='crafted/pages/wizards/*'
           element={
@@ -60,6 +96,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <AccountPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='crafted/branch/*'
+          element={
+            <SuspensedView>
+              <AccountBranch />
             </SuspensedView>
           }
         />

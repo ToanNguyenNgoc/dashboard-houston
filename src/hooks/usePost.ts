@@ -2,7 +2,7 @@ import { useState } from "react"
 
 interface HandleType {
   handleFn: <Data>(data?: Data) => Promise<any>,
-  callback?: () => void,
+  callback?: (data?:any) => void,
   messageSuccess?: string,
   messageError?: string,
   messageColor?: "error" | "info" | "success" | "warning"
@@ -44,13 +44,13 @@ export function usePost() {
         messageColor: messageColor ?? "success",
         open: true
       })
-      if (callback) { callback() }
+      if (callback) { callback(res) }
     } catch (error) {
       setResult({
         ...result,
         load: false,
         error: error,
-        message: messageError ?? error?.message,
+        message: messageError ?? error?.response?.data?.message,
         messageColor: "error",
         open: true
       })

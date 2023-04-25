@@ -1,13 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { LoadButton } from '@/components'
+import { AppContext, AppContextType } from '@/context/AppProvider'
 import { useProfileStore } from '@/store/zustand'
 import { StoreProfile } from '@/store/zustand/models'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../account-style.scss'
 
 export function Overview() {
   const navigate = useNavigate()
   const [profile] = useProfileStore((state: StoreProfile) => [state.profile])
+  const {branch} = useContext(AppContext) as AppContextType
   return (
     <>
       <div className='card mb-5 mb-xl-10' id='kt_profile_details_view'>
@@ -32,12 +35,23 @@ export function Overview() {
               </span>
             </div>
           </div>
+          <div className='row mb-7'>
+            <label className='col-lg-4 fw-bold text-muted'>CCID</label>
+
+            <div className='col-lg-8'>
+              <span className='fw-bolder fs-6 text-dark'>
+                {profile?.ccid}
+              </span>
+            </div>
+          </div>
 
           <div className='row mb-7'>
             <label className='col-lg-4 fw-bold text-muted'>Branch</label>
 
             <div className='col-lg-8 fv-row'>
-              <span className='fw-bold fs-6'>Keenthemes</span>
+              <span className='fw-bold fs-6'>
+                {branch?.name ?? 'All'}
+              </span>
             </div>
           </div>
 

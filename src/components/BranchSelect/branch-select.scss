@@ -1,0 +1,47 @@
+.select-cnt {
+  position: relative;
+
+  .form-control-solid {
+    cursor: pointer;
+  }
+
+  .branch-select_cnt {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    visibility: hidden;
+    margin-top: 30px;
+    opacity: 0;
+    transition: var(--trans);
+    padding: 12px 8px;
+    border-radius: 6px;
+    background-color: var(--kt-white);
+    box-shadow: var(--box-shadow);
+
+    .list-cnt {
+      margin-top: 8px;
+      height: fit-content;
+      max-height: 400px;
+      overflow-y: scroll;
+
+      ul {
+        li {
+          padding: 4px 0px;
+
+          .MuiButtonBase-root {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+          }
+        }
+      }
+    }
+  }
+
+  .branch-show {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 20px;
+    transition: var(--trans);
+  }
+}

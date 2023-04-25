@@ -1,1 +1,0 @@
-import{a as i}from"./index-b6841ae3.js";function u(r,a){if(r==null)return{};var n={},o=Object.keys(r),t,e;for(e=0;e<o.length;e++)t=o[e],!(a.indexOf(t)>=0)&&(n[t]=r[t]);return n}const c=i.createContext(null);export{c as T,u as _};

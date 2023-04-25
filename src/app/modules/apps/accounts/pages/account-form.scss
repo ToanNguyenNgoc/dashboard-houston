@@ -92,6 +92,17 @@
           }
         }
       }
+      .form_column_branch{
+        position: relative;
+        .form_column_branch_dis{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          z-index: 2;
+          top: 0;
+          cursor: not-allowed;
+        }
+      }
 
       .form_bottom {
         margin-top: 12px;

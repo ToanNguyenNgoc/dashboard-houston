@@ -1,12 +1,24 @@
 export const apiRoute = {
   LOGIN: '/system/auth/login',
+  SYS_FORGOT: '/system/auth/forgot',
   PROFILE: '/system/auth/profile',
   USER_ROLES: '/system/auth/roles',
+  USER_BRANCH: 'system/auth/branch',
   ACCOUNTS: '/accounts',
   ACCOUNT_ID: (id: number | string) => `/accounts/${id}`,
   ROLES: '/roles',
   ROLE_ID: (id: number | string) => `/roles/${id}`,
   PERMISSIONS: '/permissions',
   BRANCHES: '/branches',
-  BRANCH_ID: (id: number | string) => `/branches/${id}`
+  BRANCH_ID: (id: number | string) => `/branches/${id}`,
+  MEDIA: `/media`,
+  MEDIA_CLOUD: `/media/cloud`,
+  PROVINCES: '/provinces',
+  DISTRICTS: (province_code: number | string) => `/provinces/${province_code}/districts`,
+  WARDS: (district_code: number | string) => `/districts/${district_code}/wards`,
+  VILLA_CATES: '/villa_cates',
+  VILLA_CATE_ID: (id: number | string) => `/villa_cates/${id}`,
+  VILLAS: '/villas',
+  VILLA_ID: (id: number | string) => `/villas/${id}`,
+  MAP_PLACES: '/map_address/places'
 }

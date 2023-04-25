@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../../../app/modules/auth'
 import { Languages } from './Languages'
 import { toAbsoluteUrl } from '../../../helpers'
+import { useRolesStore } from '@/store/zustand'
 
 const HeaderUserMenu: FC = () => {
   const { currentUser, logout } = useAuth()
+  const [isSPA] = useRolesStore((state:any) => [state.isSPA])
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
@@ -31,7 +33,14 @@ const HeaderUserMenu: FC = () => {
       </div>
 
       <div className='separator my-2'></div>
-
+      {
+        !isSPA &&
+        <div className='menu-item px-5'>
+        <Link to='/crafted/branch' className='menu-link px-5'>
+          My Branch
+        </Link>
+      </div>
+      }
       <div className='menu-item px-5'>
         <Link to='/crafted/profile/settings' className='menu-link px-5'>
           My Profile
