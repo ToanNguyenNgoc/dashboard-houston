@@ -24,7 +24,9 @@ const PrivateRoutes = () => {
   const VillaCatePage = lazy(() => import('@/app/modules/villa/villa_cates'))
   const VillaPage = lazy(() => import('@/app/modules/villa/villas'))
   const VillaForm = lazy(() => import('@/app/modules/villa/villas/VillaForm'))
-  const FoodCatePage = lazy(()=> import('@/app/modules/food/food_cates'))
+  const FoodCatePage = lazy(() => import('@/app/modules/food/food_cates'))
+  const FoodPage = lazy(() => import('@/app/modules/food/foods'))
+  const FoodFormPage = lazy(() => import('@/app/modules/food/foods/food.form'))
 
   return (
     <Routes>
@@ -81,6 +83,30 @@ const PrivateRoutes = () => {
           element={
             <Suspense>
               <FoodCatePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path='foods/*'
+          element={
+            <Suspense>
+              <FoodPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path='foods/form'
+          element={
+            <Suspense>
+              <FoodFormPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path='foods/form/:id'
+          element={
+            <Suspense>
+              <FoodFormPage />
             </Suspense>
           }
         />

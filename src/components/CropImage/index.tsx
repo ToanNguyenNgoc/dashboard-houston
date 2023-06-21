@@ -13,7 +13,6 @@ interface CropImageType {
 
 export function CropImage({ setOpen, onChange, original_url }: CropImageType) {
   const [image, setImage] = useState(original_url || '');
-  console.log(image)
   const [currentPage, setCurrentPage] = useState("choose-img");
   const [imgAfterCrop, setImgAfterCrop] = useState("");
 

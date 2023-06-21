@@ -1,3 +1,7 @@
+export interface Page {
+  page?: number | string;
+  limit?: number | string
+}
 export interface LoginReq {
   email: string
   password: string
@@ -48,6 +52,14 @@ export interface FoodCateReq {
   description?: string;
   status?: boolean
 }
+export interface FoodReq {
+  name?: string,
+  description?: string,
+  food_cate?: number | string,
+  food_cate_id?: number | string,
+  media?: number | string,
+  status?: true
+}
 //
 export interface VillaCateQuery {
   page?: number | string,
@@ -69,9 +81,13 @@ export interface MapPlaceQuery {
   search?: string,
   search_type: 'address' | 'coord'
 }
-export interface FoodCateQr {
-  page?: number | string,
-  limit?: number | string,
+export interface FoodCateQr extends Page {
   branch_id?: number | string | null,
+  status?: boolean
+}
+export interface FoodQr extends Page {
+  search?: string;
+  branch_id?: number | string;
+  food_cate_id?: number | string;
   status?: boolean
 }

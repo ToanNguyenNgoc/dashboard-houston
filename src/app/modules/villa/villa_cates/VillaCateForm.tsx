@@ -1,22 +1,18 @@
 import { Dialog, IconButton } from "@mui/material";
 import { Dispatch, useContext, useState } from "react";
 import './villa-cate.scss'
-import { AddAPhotoIcon, BranchSelect, CropImage, LoadButton } from "@/components";
+import { AddAPhotoIcon, BranchSelect, CropImage, LoadButton, UploadImage } from "@/components";
 import { useRolesStore } from "@/store/zustand";
 import { AppContext, AppContextType } from "@/context/AppProvider";
 import { useForm } from "react-hook-form";
 import { api } from "@/api";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Image } from "@/interface"
 
 interface VillaCateFormProps {
   open: boolean,
   setOpen: Dispatch<React.SetStateAction<boolean>>
   id?: number,
-}
-
-interface Image {
-  media_id: number | null,
-  original_url: string | null
 }
 
 function VillaCateForm(props: VillaCateFormProps) {
@@ -74,7 +70,7 @@ function VillaCateForm(props: VillaCateFormProps) {
           <div className="body_img_cnt">
             <img src={image?.original_url || ''} alt="" />
             <div className="change_img">
-              <CategoryImage setImage={setImage} image={image} />
+              <UploadImage image={image} setImage={setImage} />
             </div>
           </div>
           <div className="body_desc_cnt">
@@ -126,41 +122,3 @@ function VillaCateForm(props: VillaCateFormProps) {
 }
 
 export default VillaCateForm;
-
-interface CategoryImageType {
-  setImage: Dispatch<React.SetStateAction<Image>>
-  image: Image
-}
-
-const CategoryImage = (props: CategoryImageType) => {
-  const { setImage, image } = props
-  const [open, setOpen] = useState(false)
-  const onChange = (e: any) => {
-    setImage({
-      media_id: e?.data?.id,
-      original_url: e?.data?.original_url
-    })
-  }
-  return (
-    <>
-      <IconButton
-        onClick={() => setOpen(true)}
-        style={{ backgroundColor: 'var(--kt-white)' }}
-      >
-        <AddAPhotoIcon />
-      </IconButton>
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <div className="villa_cate_crop_img">
-          <CropImage
-            setOpen={setOpen}
-            onChange={onChange}
-            original_url={image.original_url ?? ''}
-          />
-        </div>
-      </Dialog>
-    </>
-  )
-}

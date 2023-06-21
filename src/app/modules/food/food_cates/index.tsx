@@ -1,11 +1,11 @@
 import { PageTitle } from "@/_metronic/layout/core"
 import { FoodCateQr, api } from "@/api"
-import { CustomSwitch, DeleteIcon, EditIcon, LoadButton } from "@/components"
+import { CustomSwitch, DeleteIcon, EditIcon, LoadButton, SyncIcon } from "@/components"
 import { AppContext, AppContextType } from "@/context/AppProvider"
 import { IconButton } from "@mui/material"
 import moment from "moment"
 import { ChangeEvent, useContext, useState } from "react"
-import { useMutation, useQuery } from "react-query"
+import { useMutation, useQuery, useQueryClient } from "react-query"
 import { FoodCateForm } from "./food-cate.form"
 import { FoodCate } from "@/interface"
 import { usePost } from "@/hooks"
@@ -26,7 +26,7 @@ function FoodCatePage() {
       <div className={`card card-account card-villa-cate`}>
         <div className='card-header border-0 pt-5'>
           <div className='card-toolbar'>
-            <CreateCate />
+            <CreateCate query={query} />
           </div>
         </div>
         <div className='card-body py-3'>
@@ -37,15 +37,15 @@ function FoodCatePage() {
                   <th className='ps-4 min-w-200px rounded-start'>Category name</th>
                   <th className='min-w-80px'>Status</th>
                   <th className='min-w-200px'>Description</th>
-                  <th className='min-w-150px'>Created at</th>
                   <th className='min-w-150px'>Updated at</th>
+                  <th className='min-w-150px'>Created at</th>
                   <th className='min-w-100px'></th>
                 </tr>
               </thead>
               <tbody>
                 {
                   foodCates.map(cate => (
-                    <CateItem key={cate.id} cate={cate} />
+                    <CateItem key={cate.id} cate={cate} query={query} />
                   ))
                 }
               </tbody>
@@ -57,7 +57,7 @@ function FoodCatePage() {
   )
 }
 export default FoodCatePage
-const CreateCate = () => {
+const CreateCate = ({ query }: { query: FoodCateQr }) => {
   const [open, setOpen] = useState(false)
   return (
     <>
@@ -67,13 +67,14 @@ const CreateCate = () => {
         onClick={() => setOpen(true)}
       />
       <FoodCateForm
-        open={open} setOpen={setOpen}
+        open={open} setOpen={setOpen} query={query}
       />
     </>
   )
 }
-const CateItem = ({ cate }: { cate: FoodCate }) => {
+const CateItem = ({ cate, query }: { cate: FoodCate, query: FoodCateQr }) => {
   const [open, setOpen] = useState(false)
+  const queryClient = useQueryClient()
   const { handle } = usePost()
   const [status, setStatus] = useState(cate.status)
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,11 +83,17 @@ const CateItem = ({ cate }: { cate: FoodCate }) => {
     })
     setStatus(e.target.checked)
   }
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (id: number | string) => api.deleteFoodCate(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['FOOD_CATE', query] })
+    }
+  })
 
   return (
     <>
       <FoodCateForm
-        open={open} setOpen={setOpen} id={cate.id}
+        open={open} setOpen={setOpen} id={cate.id} query={query}
       />
       <tr key={cate.id}>
         <td>
@@ -113,7 +120,7 @@ const CateItem = ({ cate }: { cate: FoodCate }) => {
         </td>
         <td>
           <span className='text-muted fw-semobold text-muted d-block fs-7'>
-            {moment(cate.updated_at).format('DD/MM/YYYY HH:mm')}
+            {moment(cate.created_at).format('DD/MM/YYYY HH:mm')}
           </span>
         </td>
         <td>
@@ -125,13 +132,12 @@ const CateItem = ({ cate }: { cate: FoodCate }) => {
             <EditIcon color="success" />
           </IconButton>
           <IconButton
-            // disabled={isLoading}
+            disabled={isLoading}
             size="small"
             style={{ backgroundColor: 'var(--kt-gray-200)', marginLeft: '8px' }}
-          // onClick={() => mutate()}
+            onClick={() => mutate(cate.id)}
           >
-            <DeleteIcon color="error" />
-            {/* {isLoading ? <SyncIcon color="error" /> : <DeleteIcon color="error" />} */}
+            {isLoading ? <SyncIcon color="error" /> : <DeleteIcon color="error" />}
           </IconButton>
         </td>
       </tr>

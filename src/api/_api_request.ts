@@ -5,6 +5,8 @@ import {
   BranchUpdateReq,
   FoodCateQr,
   FoodCateReq,
+  FoodQr,
+  FoodReq,
   ForgotPassReq,
   LoginReq,
   MapPlaceQuery,
@@ -17,7 +19,7 @@ import {
   VillaQuery
 } from "./interface";
 import { apiRoute } from "./_api_route";
-import { FoodCate, ResponseDetail, ResponseList } from "@/interface";
+import { FoodCate, IFood, ResponseDetail, ResponseList } from "@/interface";
 
 
 
@@ -188,6 +190,14 @@ class Api {
   putFoodCate(id: number | string, body: FoodCateReq) {
     return axiosClient.put(apiRoute.FOOD_CATE_ID(id), body)
   }
+  deleteFoodCate = (id: number | string) => axiosClient.delete(apiRoute.FOOD_CATE_ID(id))
+
+  foods = (qr: FoodQr) => axiosClient.get(apiRoute.foods, { params: qr }).then<ResponseList<IFood[]>>(res => res.data)
+  food = (id: number | string) => axiosClient.get(apiRoute.food_id(id)).then<ResponseDetail<IFood>>(res => res.data)
+  postFood = (body: FoodReq) => axiosClient.post(apiRoute.foods, body)
+  putFood = (id: number | string, body: FoodReq) => axiosClient.put(apiRoute.food_id(id), body)
+  deleteFood = (id: number | string) => axiosClient.delete(apiRoute.food_id(id))
+
 }
 
 export const api = new Api()

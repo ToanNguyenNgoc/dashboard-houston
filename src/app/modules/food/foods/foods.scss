@@ -1,0 +1,31 @@
+.food-image {
+  width: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.form-container {
+  .image-place {
+    width: 400px;
+    aspect-ratio: 3 / 2;
+    background-color: var(--bs-gray-200);
+    border-radius: 8px;
+    position: relative;
+
+    .image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      z-index: 1;
+    }
+
+    .image-input-btn {
+      position: absolute;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

@@ -46,7 +46,13 @@ export function AsideMenuMain() {
       <AsideMenuItem
         to='/food_cates'
         icon='/media/icons/duotune/general/gen051.svg'
-        title='Food category'
+        title='Food categories'
+        fontIcon='bi-layers'
+      />
+      <AsideMenuItem
+        to='/foods'
+        icon='/media/icons/duotune/general/gen051.svg'
+        title='Foods'
         fontIcon='bi-layers'
       />
       {/* <div className='menu-item'>
