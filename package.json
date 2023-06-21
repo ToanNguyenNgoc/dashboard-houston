@@ -9,7 +9,6 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
-  "homepage": "/metronic8/react/demo1",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
