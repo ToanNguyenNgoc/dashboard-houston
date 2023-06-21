@@ -1,0 +1,1 @@
+const h=o=>{let r=0,t;for(t=0;t<(o==null?void 0:o.length);t+=1)r=o.charCodeAt(t)+((r<<5)-r);let c="#";for(t=0;t<3;t+=1){const s=r>>t*8&255;c+=`00${s.toString(16)}`.slice(-2)}return c};function i(o){return{sx:{bgcolor:h(o)},children:`${o==null?void 0:o.split(" ")[0][0]}${o==null?void 0:o.split(" ")[1][0]}`}}export{i as s};
