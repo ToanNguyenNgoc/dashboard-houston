@@ -13,16 +13,22 @@ import '@/_metronic/assets/sass/_root.scss'
 setupAxios(axios)
 Chart.register(...registerables)
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    }
+  }
+})
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <MetronicI18nProvider>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
-      </MetronicI18nProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+  <QueryClientProvider client={queryClient}>
+    <MetronicI18nProvider>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </MetronicI18nProvider>
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
   // </React.StrictMode>,
 )

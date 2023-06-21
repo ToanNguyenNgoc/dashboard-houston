@@ -3,6 +3,8 @@ import axiosClient from "./axios";
 import {
   BranchQueryReq,
   BranchUpdateReq,
+  FoodCateQr,
+  FoodCateReq,
   ForgotPassReq,
   LoginReq,
   MapPlaceQuery,
@@ -15,6 +17,7 @@ import {
   VillaQuery
 } from "./interface";
 import { apiRoute } from "./_api_route";
+import { FoodCate, ResponseDetail, ResponseList } from "@/interface";
 
 
 
@@ -170,6 +173,20 @@ class Api {
     return axiosClient
       .get(apiRoute.MAP_PLACES, { params })
       .then(res => res.data)
+  }
+  foodCates(qr: FoodCateQr) {
+    return axiosClient
+      .get(apiRoute.FOOD_CATES, { params: qr })
+      .then<ResponseList<FoodCate[]>>(res => res.data)
+  }
+  foodCate(id: number | string) {
+    return axiosClient.get(apiRoute.FOOD_CATE_ID(id)).then<ResponseDetail<FoodCate>>(res => res.data)
+  }
+  postFoodCate(body: FoodCateReq) {
+    return axiosClient.post(apiRoute.FOOD_CATES, body)
+  }
+  putFoodCate(id: number | string, body: FoodCateReq) {
+    return axiosClient.put(apiRoute.FOOD_CATE_ID(id), body)
   }
 }
 

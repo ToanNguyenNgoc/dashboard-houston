@@ -20,5 +20,7 @@ export const apiRoute = {
   VILLA_CATE_ID: (id: number | string) => `/villa_cates/${id}`,
   VILLAS: '/villas',
   VILLA_ID: (id: number | string) => `/villas/${id}`,
-  MAP_PLACES: '/map_address/places'
+  MAP_PLACES: '/map_address/places',
+  FOOD_CATES: '/food_cates',
+  FOOD_CATE_ID: (id: number | string) => `/food_cates/${id}`
 }

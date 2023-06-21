@@ -38,6 +38,17 @@ export function AsideMenuMain() {
         title='Villa'
         fontIcon='bi-layers'
       />
+      <div className='menu-item'>
+        <div className='menu-content pt-8 pb-2'>
+          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Food category & Food</span>
+        </div>
+      </div>
+      <AsideMenuItem
+        to='/food_cates'
+        icon='/media/icons/duotune/general/gen051.svg'
+        title='Food category'
+        fontIcon='bi-layers'
+      />
       {/* <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>

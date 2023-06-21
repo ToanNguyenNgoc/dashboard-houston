@@ -57,11 +57,12 @@ const IOSSwitch = styled((props: SwitchProps) => (
 interface CustomSwitchType {
   checked?: boolean
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
-  style?: React.CSSProperties
+  style?: React.CSSProperties,
+  label?: string
 }
 
 export function CustomSwitch(props: CustomSwitchType) {
-  const { checked, onChange, style } = props;
+  const { checked, onChange, style, label } = props;
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (onChange) return onChange(e)
   }
@@ -71,7 +72,7 @@ export function CustomSwitch(props: CustomSwitchType) {
       control={
         <IOSSwitch sx={{ m: 1 }} checked={checked} onChange={handleChange} />
       }
-      label=""
+      label={label}
     />
   );
 }

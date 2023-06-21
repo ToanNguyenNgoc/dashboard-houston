@@ -2,6 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 import moment from "moment";
 import { encode } from "@/utils";
+import { key } from "@/api/_key";
 
 export const offset = import.meta.env.VITE_REACT_APP_OFFSET_LIVE
 export const baseURL = import.meta.env.VITE_REACT_APP_API_URL_LIVE
@@ -23,6 +24,8 @@ const axiosClient = axios.create({
   },
 });
 axiosClient.interceptors.request.use(async (config) => {
+  const lsToken = localStorage.getItem(key.AUTH_LOCAL_STORAGE_KEY)
+  config.headers['Authorization'] = `Bearer ${lsToken}`
   return config;
 });
 axios.interceptors.response.use(
